@@ -2,6 +2,26 @@
 
 declare(strict_types=1);
 
+class Verse
+{
+    public function __construct(
+        private string $title,
+        private string $text
+    )
+    {
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getText(): string
+    {
+        return $this->text;
+    }
+}
+
 function main(): int
 {
     $verses = [];
@@ -16,17 +36,15 @@ function main(): int
     while (!$f->eof()) {
         $line = $f->fgets();
         if (preg_match('/(\w+\s+\d+:\d+)\s(.*?)$/', $line, $matches)) {
-            $verses[] = [
-                'title' => $matches[1],
-                'text' => $matches[2],
-            ];
+            $verse = new Verse($matches[1], $matches[2]);
+            $verses[] = $verse;
         }
     }
 
     $f = null;
 
     $verse = $verses[array_rand($verses)];
-    printf("%s\n\n- %s\n", $verse['text'], $verse['title']);
+    printf("%s\n\n- %s\n", $verse->getText(), $verse->getTitle());
 
     return 0;
 }
