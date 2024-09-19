@@ -33,8 +33,14 @@ class FileReader
         }
     }
 
+    private function reset(): void
+    {
+        $this->files = [];
+    }
+
     public function read(): array
     {
+        $this->reset();
         $this->scan($this->directory);
 
         return $this->files;
