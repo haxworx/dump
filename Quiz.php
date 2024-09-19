@@ -25,7 +25,13 @@ class Question
     }
 }
 
-class Quiz
+interface Quiz
+{
+    public function addQuestion(Question $question);
+    public function play();
+}
+
+class TimesTableQuiz implements Quiz
 {
     const int NUM_QUESTIONS = 12;
     
@@ -67,7 +73,7 @@ class Quiz
 
 function main(): int
 {
-    $quiz = new Quiz();
+    $quiz = new TimesTableQuiz();
 
     for ($i = 1; $i <= 12; $i++) {
         for ($j = 1; $j <= 12; $j++) {
