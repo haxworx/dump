@@ -34,12 +34,16 @@ interface Quiz
 class TimesTableQuiz implements Quiz
 {
     const int NUM_QUESTIONS = 12;
+    private array $questions = [];
     
-    public function __construct(
-        private array $questions = []
-    )
+    public function __construct()
     {
-
+        for ($i = 1; $i <= 12; $i++) {
+            for ($j = 1; $j <= 12; $j++) {
+                $question = new Question("What is $i * $j?", (int) $i * $j);
+                $this->addQuestion($question);
+            }
+        }
     }
 
     public function addQuestion(Question $question): static
@@ -74,13 +78,6 @@ class TimesTableQuiz implements Quiz
 function main(): int
 {
     $quiz = new TimesTableQuiz();
-
-    for ($i = 1; $i <= 12; $i++) {
-        for ($j = 1; $j <= 12; $j++) {
-            $question = new Question("What is $i * $j?", (int) $i * $j);
-            $quiz->addQuestion($question);
-        }
-    }
 
     $quiz->play();
 
