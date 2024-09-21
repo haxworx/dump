@@ -35,7 +35,7 @@ function main(): int
 
     while (!$f->eof()) {
         $line = $f->fgets();
-        if (preg_match('/(\w+\s+\d+:\d+)\s(.*?)$/', $line, $matches)) {
+        if (preg_match('/(.*?\s+\d+:\d+)\s(.*?)$/', $line, $matches)) {
             $verse = new Verse($matches[1], $matches[2]);
             $verses[] = $verse;
         }
