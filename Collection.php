@@ -73,10 +73,15 @@ function main(): int
     $collection->remove(8);
     $collection->remove(1);
 
+    $words = ['Linty', 'Shminty', 'Vegetable', 'Soup'];
+    foreach ($words as $word) {
+        $collection->add($word);
+    }
+
     printf("We have %d items\n", count($collection));
 
     foreach ($collection as $idx => $value) {
-        printf("%d: => %d\n", $idx, $value);
+        printf("$idx: => $value\n");
     }
 
     return 0;
