@@ -11,10 +11,11 @@ class Node
     }
 }
 
-class LinkedList implements Iterator
+class LinkedList implements Iterator, Countable
 {
     public ?Node $next = null;
     public ?Node $cursor = null;
+    private int $count = 0;
     public function __construct()
     {
         $this->cursor = $this->next;
@@ -32,6 +33,7 @@ class LinkedList implements Iterator
             } 
             $next->next = $node;
         }
+        $this->count++;
     }
 
     public function remove(mixed $data): void
@@ -45,11 +47,17 @@ class LinkedList implements Iterator
                 else
                     $this->next = $cursor->next;
                 $cursor = null;
+                $this->count--;
                 return;
             }
             $prev = $cursor;
             $cursor = $cursor->next;
         }
+    }
+
+    public function count(): int
+    {
+        return $this->count;
     }
 
     public function current(): mixed
@@ -85,6 +93,7 @@ function main(): int
         $linkedList->append($i);
     }
 
+    printf("We have %d items\n", count($linkedList));
     foreach ($linkedList as $item) {
         printf("%d\n", $item);
     }
@@ -93,6 +102,7 @@ function main(): int
     $linkedList->remove(5);
     $linkedList->remove(10);
 
+    printf("We have %d items\n", count($linkedList));
     foreach ($linkedList as $item) {
         printf("%d\n", $item);
     }
@@ -101,3 +111,4 @@ function main(): int
 }
 
 exit(main());
+
