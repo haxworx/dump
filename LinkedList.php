@@ -30,14 +30,14 @@ class LinkedList implements Iterator, Countable
         } else {
             $next = $this->next;
             while ($next->next) {
-               $next = $next->next; 
-            } 
+               $next = $next->next;
+            }
             $next->next = $node;
         }
         $this->count++;
     }
 
-    public function remove(mixed $data): void
+    public function remove(mixed $data): bool
     {
         $prev = null;
         $cursor = $this->next;
@@ -49,11 +49,12 @@ class LinkedList implements Iterator, Countable
                     $this->next = $cursor->next;
                 $cursor = null;
                 $this->count--;
-                return;
+                return true;
             }
             $prev = $cursor;
             $cursor = $cursor->next;
         }
+        return false;
     }
 
     public function count(): int
@@ -99,9 +100,14 @@ function main(): int
         printf("%d\n", $item);
     }
 
-    $linkedList->remove(1);
+    if ($linkedList->remove(1)) {
+        printf("Removed\n");
+    }
     $linkedList->remove(5);
     $linkedList->remove(10);
+    if (!$linkedList->remove(12)) {
+        printf("Not removed\n");
+    }
 
     printf("We have %d items\n", count($linkedList));
     foreach ($linkedList as $item) {
