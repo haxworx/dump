@@ -69,7 +69,16 @@ class LinkedList implements Iterator, Countable
 
     public function key(): mixed
     {
-        return false;
+        $i = 0;
+        $node = $this->next;
+        while ($node) {
+            if ($node === $this->cursor) {
+                return $i;
+            }
+            $i++;
+            $node = $node->next;
+        }
+        return null;
     }
 
     public function next(): void
@@ -96,8 +105,8 @@ function main(): int
     }
 
     printf("We have %d items\n", count($linkedList));
-    foreach ($linkedList as $item) {
-        printf("%d\n", $item);
+    foreach ($linkedList as $idx => $item) {
+        printf("%d: %d\n", $idx, $item);
     }
 
     if ($linkedList->remove(1)) {
@@ -110,8 +119,8 @@ function main(): int
     }
 
     printf("We have %d items\n", count($linkedList));
-    foreach ($linkedList as $item) {
-        printf("%d\n", $item);
+    foreach ($linkedList as $idx => $item) {
+        printf("%d: %d\n", $idx, $item);
     }
 
     return 0;
