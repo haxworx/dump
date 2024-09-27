@@ -13,9 +13,10 @@ class Node
 
 class LinkedList implements Iterator, Countable
 {
-    public ?Node $next = null;
-    public ?Node $cursor = null;
+    private ?Node $next = null;
+    private ?Node $cursor = null;
     private int $count = 0;
+
     public function __construct()
     {
         $this->cursor = $this->next;
